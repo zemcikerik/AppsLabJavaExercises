@@ -13,7 +13,7 @@ public class DivideSlicesTests {
     @ParameterizedTest
     @MethodSource("getValuesFromExercise")
     public void testWithValuesFromExercise(int total, int people, int each, boolean expected) {
-        Assertions.fail("This exercise was not completed!");
+        Assertions.assertEquals(expected, ExerciseApp.equalSlices(total, people, each));
     }
 
     public static Stream<Arguments> getValuesFromExercise() {
@@ -28,7 +28,7 @@ public class DivideSlicesTests {
 
     @Test
     public void testWithZeroPeople() {
-        Assertions.fail("This exercise was not completed!");
+        Assertions.assertTrue(ExerciseApp.equalSlices(10, 0, 5));
     }
 
 }

@@ -12,7 +12,7 @@ public class EqualValuesTests {
     @ParameterizedTest
     @MethodSource("getValuesFromExercise")
     public void testWithValuesFromExercise(int a, int b, int c, int expected) {
-        Assertions.fail("This exercise was not completed!");
+        Assertions.assertEquals(expected, ExerciseApp.equalValues(a, b, c));
     }
 
     public static Stream<Arguments> getValuesFromExercise() {
