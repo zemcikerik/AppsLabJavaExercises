@@ -17,6 +17,22 @@ public final class ExerciseApp {
         return stepCount * stepLength + towerHeight;
     }
 
+    /**
+     * Multiplies all elements of an array by it's length.
+     *
+     * @param array target array
+     * @return the same {@code array} instance
+     */
+    public static int[] multiplyByLength(int[] array) {
+        int length = array.length;
+
+        for (int i = 0; i < length; i++) {
+            array[i] *= length;
+        }
+
+        return array;
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello Apps Lab!");
     }

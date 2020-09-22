@@ -12,7 +12,7 @@ public class MultiplyByLengthTests {
     @ParameterizedTest
     @MethodSource("getValuesFromExercise")
     public void testWithValuesFromExercise(int[] input, int[] expected) {
-        Assertions.fail("This exercise was not completed!");
+        Assertions.assertArrayEquals(expected, ExerciseApp.multiplyByLength(input));
     }
 
     public static Stream<Arguments> getValuesFromExercise() {
