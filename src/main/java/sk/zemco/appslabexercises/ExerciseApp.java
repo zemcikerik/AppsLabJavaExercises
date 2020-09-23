@@ -44,15 +44,9 @@ public final class ExerciseApp {
      */
     public static int equalValues(int a, int b, int c) {
         if (a == b || a == c) {
-            if (b == c) {
-                return 3;
-            }
-            return 2;
+            return b == c ? 3 : 2;
         }
-        if (b == c) {
-            return 2;
-        }
-        return 0;
+        return b == c ? 2 : 0;
     }
 
     /**

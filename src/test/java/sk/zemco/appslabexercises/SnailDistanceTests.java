@@ -20,7 +20,7 @@ public class SnailDistanceTests {
     public static Stream<Arguments> getValuesFromExercise() {
         return Stream.of(
                 Arguments.of(0.2, 0.4, 100.0, 300.0),
-                Arguments.of(0.3, 0.2, 25.0, 25.0),
+                Arguments.of(0.3, 0.2, 25.0, 41.667),
                 Arguments.of(0.1, 0.1, 6.0, 12.0)
         );
     }
