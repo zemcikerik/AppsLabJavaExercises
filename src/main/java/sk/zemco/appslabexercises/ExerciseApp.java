@@ -49,6 +49,9 @@ public final class ExerciseApp {
             }
             return 2;
         }
+        if (b == c) {
+            return 2;
+        }
         return 0;
     }
 
