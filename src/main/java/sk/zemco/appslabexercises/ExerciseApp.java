@@ -1,5 +1,8 @@
 package sk.zemco.appslabexercises;
 
+import java.util.Arrays;
+
+// TODO: update javadoc
 public final class ExerciseApp {
 
     /**
@@ -95,6 +98,53 @@ public final class ExerciseApp {
             }
         }
         return true;
+    }
+
+    public static int differenceMinMax(int[] numbers) {
+        if (numbers.length < 2) {
+            return 0;
+        }
+
+        int min = Arrays.stream(numbers).min().getAsInt();
+        int max = Arrays.stream(numbers).max().getAsInt();
+
+        return max - min;
+    }
+
+    public static int warOfNumbers(int[] numbers) {
+        if (numbers.length == 0) {
+            return 0;
+        }
+
+        int evenSum = Arrays.stream(numbers)
+                .filter(num -> num % 2 == 0)
+                .sum();
+
+        int oddSum = Arrays.stream(numbers)
+                .filter(num -> num % 2 == 1)
+                .sum();
+
+        return Math.abs(evenSum - oddSum);
+    }
+
+    public static boolean checkEnding(String str, String ending) {
+        return str.endsWith(ending);
+    }
+
+    public static boolean canCapture(String pos, String pos2) {
+        return pos.charAt(0) == pos2.charAt(0)
+                || pos.charAt(1) == pos2.charAt(1);
+    }
+
+    public static String getStudentInfo(Student student) {
+        return String.format("%d, %s, %s", student.getStudentNumber(), student.getPhoneNumber(), student.getAddress());
+    }
+
+    public static int getPeopleBudget(Person[] people) {
+        return Arrays.stream(people)
+                .map(Person::getBudget)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static void main(String[] args) {
