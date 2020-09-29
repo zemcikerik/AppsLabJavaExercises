@@ -116,13 +116,8 @@ public final class ExerciseApp {
             return 0;
         }
 
-        int evenSum = Arrays.stream(numbers)
-                .filter(num -> num % 2 == 0)
-                .sum();
-
-        int oddSum = Arrays.stream(numbers)
-                .filter(num -> num % 2 == 1)
-                .sum();
+        int evenSum = Arrays.stream(numbers).filter(num -> num % 2 == 0).sum();
+        int oddSum = Arrays.stream(numbers).filter(num -> num % 2 == 1).sum();
 
         return Math.abs(evenSum - oddSum);
     }
