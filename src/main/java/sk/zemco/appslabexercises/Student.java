@@ -7,8 +7,7 @@ public class Student {
     private String phoneNumber;
     private String address;
 
-    public Student() {
-    }
+    public Student() { }
 
     public Student(String name, int studentNumber) {
         this.name = name;

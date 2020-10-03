@@ -6,8 +6,7 @@ public class Person {
     private int age;
     private int budget;
 
-    public Person() {
-    }
+    public Person() { }
 
     public Person(String name, int age, int budget) {
         this.name = name;

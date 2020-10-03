@@ -1,6 +1,13 @@
 package sk.zemco.appslabexercises;
 
+import sk.zemco.appslabexercises.warrior.BattleResult;
+import sk.zemco.appslabexercises.warrior.Item;
+import sk.zemco.appslabexercises.warrior.Warrior;
+
+import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Optional;
 
 // TODO: update javadoc
 public final class ExerciseApp {
@@ -140,6 +147,53 @@ public final class ExerciseApp {
                 .map(Person::getBudget)
                 .mapToInt(Integer::intValue)
                 .sum();
+    }
+
+    public static String getFormattedEmployeeInfo(Employee employee) {
+        JobPosition jobPosition = employee.getJobPosition();
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
+        return String.format("%s %s, %s, salary: %s eur",
+                employee.getName(),
+                employee.getSurname(),
+                jobPosition.getName(),
+                decimalFormat.format(jobPosition.getSalary()));
+    }
+
+    public static BattleResult battleOfWarriors(Warrior warrior1, Warrior warrior2) {
+        int force1 = getWarriorForce(warrior1);
+        int force2 = getWarriorForce(warrior2);
+        BattleResult result = getBattleResult(force1, force2);
+
+        if (result == BattleResult.DRAW) {
+            return result;
+        }
+
+        Warrior winningWarrior = result == BattleResult.FIRST_WINS ? warrior1 : warrior2;
+        Warrior losingWarrior = result == BattleResult.SECOND_WINS ? warrior1 : warrior2;
+        Optional<Item> optionalItem = losingWarrior.getItems().stream().max(Comparator.comparing(Item::getValue));
+
+        losingWarrior.setLife(losingWarrior.getLife() - 1);
+
+        if (optionalItem.isEmpty()) {
+            return result;
+        }
+
+        Item item = optionalItem.get();
+        winningWarrior.getItems().add(item);
+        losingWarrior.getItems().remove(item);
+        return result;
+    }
+
+    private static int getWarriorForce(Warrior warrior) {
+        return warrior.getLife() + warrior.getMuscle() + warrior.getSpeed();
+    }
+
+    private static BattleResult getBattleResult(int force1, int force2) {
+        if (force1 == force2) {
+            return BattleResult.DRAW;
+        }
+        return force1 > force2 ? BattleResult.FIRST_WINS : BattleResult.SECOND_WINS;
     }
 
     public static void main(String[] args) {
