@@ -7,7 +7,7 @@ import sk.zemco.appslabexercises.warrior.Warrior;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Optional;
+import java.util.List;
 
 // TODO: update javadoc
 public final class ExerciseApp {
@@ -163,37 +163,47 @@ public final class ExerciseApp {
     public static BattleResult battleOfWarriors(Warrior warrior1, Warrior warrior2) {
         int force1 = getWarriorForce(warrior1);
         int force2 = getWarriorForce(warrior2);
-        BattleResult result = getBattleResult(force1, force2);
 
-        if (result == BattleResult.DRAW) {
-            return result;
+        if (force1 == force2) {
+            decrementHealth(warrior1);
+            decrementHealth(warrior2);
+            return BattleResult.DRAW;
         }
 
-        Warrior winningWarrior = result == BattleResult.FIRST_WINS ? warrior1 : warrior2;
-        Warrior losingWarrior = result == BattleResult.SECOND_WINS ? warrior1 : warrior2;
-        Optional<Item> optionalItem = losingWarrior.getItems().stream().max(Comparator.comparing(Item::getValue));
-
-        losingWarrior.setLife(losingWarrior.getLife() - 1);
-
-        if (optionalItem.isEmpty()) {
-            return result;
+        if (force1 > force2) {
+            transferItemsAndDecrementHealth(warrior1, warrior2);
+            return BattleResult.FIRST_WINS;
         }
 
-        Item item = optionalItem.get();
-        winningWarrior.getItems().add(item);
-        losingWarrior.getItems().remove(item);
-        return result;
+        transferItemsAndDecrementHealth(warrior2, warrior1);
+        return BattleResult.SECOND_WINS;
     }
 
     private static int getWarriorForce(Warrior warrior) {
         return warrior.getLife() + warrior.getMuscle() + warrior.getSpeed();
     }
 
-    private static BattleResult getBattleResult(int force1, int force2) {
-        if (force1 == force2) {
-            return BattleResult.DRAW;
+    private static void decrementHealth(Warrior warrior) {
+        warrior.setLife(warrior.getLife() - 1);
+    }
+
+    private static void transferItemsAndDecrementHealth(Warrior winner, Warrior loser) {
+        loser.setLife(loser.getLife() - 1);
+
+        List<Item> winnerItems = winner.getItems();
+        List<Item> loserItems = loser.getItems();
+
+        if (loserItems.size() == 0) {
+            return;
         }
-        return force1 > force2 ? BattleResult.FIRST_WINS : BattleResult.SECOND_WINS;
+
+        // get item with highest value
+        Item item = loserItems.stream()
+                .max(Comparator.comparing(Item::getValue))
+                .get();
+
+        loserItems.remove(item);
+        winnerItems.add(item);
     }
 
     public static void main(String[] args) {

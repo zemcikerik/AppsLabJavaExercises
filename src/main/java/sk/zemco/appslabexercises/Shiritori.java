@@ -31,6 +31,11 @@ public class Shiritori {
             return ShiritoriRoundResult.gameOver();
         }
 
+        // trim leading and trailing whitespace
+        if (word != null) {
+            word = word.trim();
+        }
+
         if (isWordValid(word)) {
             words.add(word.trim());
             return ShiritoriRoundResult.roundOver(List.copyOf(words));
@@ -50,9 +55,6 @@ public class Shiritori {
         if (word == null || word.length() == 0) {
             return false;
         }
-
-        // trim leading and trailing whitespace
-        word = word.trim();
 
         // check if every character is a letter
         if (!word.chars().allMatch(Character::isLetter)) {
