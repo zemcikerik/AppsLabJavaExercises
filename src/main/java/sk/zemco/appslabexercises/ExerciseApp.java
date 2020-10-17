@@ -209,7 +209,12 @@ public final class ExerciseApp {
     @SuppressWarnings("unused")
     public static void createListAndPrintItsElements() {
         ArrayList<Integer> list = createIntegerArrayListWith(1, 1, 1, 2, 2, 3, 4, 5);
-        list.forEach(System.out::println);
+
+        if (list.isEmpty()) {
+            System.out.println("List is empty!");
+        } else {
+            list.forEach(System.out::println);
+        }
     }
 
     // purposefully avoiding Arrays.asList(List<T>) in this exercise
